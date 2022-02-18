@@ -37,22 +37,21 @@ const Collection = () => {
   const { provider } = useWeb3()
   const { collectionId } = router.query
   const [collection, setCollection] = useState({})
-  const [nfts, setNfts] = useState([])
+  const [nfts, setNfts] = useState({})
   const [listings, setListings] = useState([])
 
-  //
-
+  // "https://eth-rinkeby.alchemyapi.io/v2/5vFuZKTjb_62RCndpm-O8L9y3vIzQH9m"
   const nftModule = useMemo(() => {
     if (!provider) return
 
     const sdk = new ThirdwebSDK(
       provider.getSigner(),
-      'https://rinkeby.infura.io/v3/a464b9152d8c466c8a94a514fce8e837'
+      'https://eth-rinkeby.alchemyapi.io/v2/5vFuZKTjb_62RCndpm-O8L9y3vIzQH9m'
     )
     return sdk.getNFTModule(collectionId)
   }, [provider])
 
-  // get all NFTs in the collection
+  // get All NFTs in the collection
   useEffect(() => {
     if (!nftModule) return
     ;(async () => {
@@ -67,14 +66,13 @@ const Collection = () => {
 
     const sdk = new ThirdwebSDK(
       provider.getSigner(),
-      'https://rinkeby.infura.io/v3/a464b9152d8c466c8a94a514fce8e837'
+      'https://eth-rinkeby.alchemyapi.io/v2/5vFuZKTjb_62RCndpm-O8L9y3vIzQH9m'
     )
     return sdk.getMarketplaceModule(
-      '0x93A771F7ce845C33381f677489cF21a5964EDD0b'
+      '0xdE0300C151Cd7a2d9C131aAE537fcd2BE6817103'
     )
   }, [provider])
-
-  // get all listings in the collection
+  // get all the Listing s in the collection
   useEffect(() => {
     if (!marketPlaceModule) return
     ;(async () => {
@@ -97,18 +95,15 @@ const Collection = () => {
 
     const collectionData = await sanityClient.fetch(query)
 
-    console.log(collectionData, '🔥')
+    console.log(collectionData)
 
     // the query returns 1 object inside of an array
     await setCollection(collectionData[0])
   }
-
   useEffect(() => {
     fetchCollectionData()
   }, [collectionId])
 
-  console.log(router.query)
-  console.log(router.query.collectionId)
   return (
     <div className="overflow-hidden">
       <Header />
@@ -207,7 +202,7 @@ const Collection = () => {
           <div className={style.description}>{collection?.description}</div>
         </div>
       </div>
-      <div className="flex flex-wrap ">
+      {/* <div className="flex flex-wrap ">
         {nfts.map((nftItem, id) => (
           <NFTCard
             key={id}
@@ -216,7 +211,7 @@ const Collection = () => {
             listings={listings}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }

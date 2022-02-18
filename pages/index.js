@@ -40,7 +40,7 @@ export default function Home() {
 
       const result = await client.createIfNotExists(userDoc)
 
-      welcomeUser(result.userName)
+      // welcomeUser(result.userName)
     })()
   }, [address])
 
