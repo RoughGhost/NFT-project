@@ -25,11 +25,8 @@ const Nft = () => {
   const nftModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(
-      provider.getSigner(),
-      'https://rinkeby.infura.io/v3/a464b9152d8c466c8a94a514fce8e837'
-    )
-    return sdk.getNFTModule('0x66a576A977b7Bccf510630E0aA5e450EC11361Fa')
+    const sdk = new ThirdwebSDK(provider.getSigner())
+    return sdk.getNFTModule('0xC8966b10De7d8C32198845Fa0b39f9854F805740')
   }, [provider])
 
   // get all NFTs in the collection
@@ -47,13 +44,10 @@ const Nft = () => {
   const marketPlaceModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(
-      provider.getSigner(),
-      'https://rinkeby.infura.io/v3/a464b9152d8c466c8a94a514fce8e837'
-    )
+    const sdk = new ThirdwebSDK(provider.getSigner())
 
     return sdk.getMarketplaceModule(
-      '0x93A771F7ce845C33381f677489cF21a5964EDD0b'
+      '0xdE0300C151Cd7a2d9C131aAE537fcd2BE6817103'
     )
   }, [provider])
 

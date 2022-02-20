@@ -37,17 +37,14 @@ const Collection = () => {
   const { provider } = useWeb3()
   const { collectionId } = router.query
   const [collection, setCollection] = useState({})
-  const [nfts, setNfts] = useState({})
+  const [nfts, setNfts] = useState([])
   const [listings, setListings] = useState([])
 
   // "https://eth-rinkeby.alchemyapi.io/v2/5vFuZKTjb_62RCndpm-O8L9y3vIzQH9m"
   const nftModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(
-      provider.getSigner(),
-      'https://eth-rinkeby.alchemyapi.io/v2/5vFuZKTjb_62RCndpm-O8L9y3vIzQH9m'
-    )
+    const sdk = new ThirdwebSDK(provider.getSigner())
     return sdk.getNFTModule(collectionId)
   }, [provider])
 
@@ -64,10 +61,7 @@ const Collection = () => {
   const marketPlaceModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(
-      provider.getSigner(),
-      'https://eth-rinkeby.alchemyapi.io/v2/5vFuZKTjb_62RCndpm-O8L9y3vIzQH9m'
-    )
+    const sdk = new ThirdwebSDK(provider.getSigner())
     return sdk.getMarketplaceModule(
       '0xdE0300C151Cd7a2d9C131aAE537fcd2BE6817103'
     )
@@ -202,7 +196,7 @@ const Collection = () => {
           <div className={style.description}>{collection?.description}</div>
         </div>
       </div>
-      {/* <div className="flex flex-wrap ">
+      <div className="flex flex-wrap ">
         {nfts.map((nftItem, id) => (
           <NFTCard
             key={id}
@@ -211,7 +205,7 @@ const Collection = () => {
             listings={listings}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   )
 }
